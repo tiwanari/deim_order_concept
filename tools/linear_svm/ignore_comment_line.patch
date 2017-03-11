@@ -1,0 +1,78 @@
+diff -uprN liblinear-ranksvm-2.1.org/predict.c liblinear-ranksvm-2.1/predict.c
+--- liblinear-ranksvm-2.1.org/predict.c	2017-01-24 13:41:57.000000000 +0900
++++ liblinear-ranksvm-2.1/predict.c	2017-01-15 02:04:23.000000000 +0900
+@@ -105,6 +105,9 @@ void do_predict(FILE *input, FILE *outpu
+ 		if(label == NULL) // empty line
+ 			exit_input_error(total+1);
+ 
++		if (label[0] == '#')
++			continue;
++
+ 		target_label = strtod(label,&endptr);
+ 		if(endptr == label || *endptr != '\0')
+ 			exit_input_error(total+1);
+@@ -325,4 +328,3 @@ int main(int argc, char **argv)
+ 	fclose(output);
+ 	return 0;
+ }
+-
+diff -uprN liblinear-ranksvm-2.1.org/train.c liblinear-ranksvm-2.1/train.c
+--- liblinear-ranksvm-2.1.org/train.c	2017-01-24 13:41:57.000000000 +0900
++++ liblinear-ranksvm-2.1/train.c	2017-01-24 18:10:35.000000000 +0900
+@@ -404,7 +404,7 @@ void parse_command_line(int argc, char *
+ // read in a problem (in libsvm format)
+ void read_problem(const char *filename)
+ {
+-	int max_index, inst_max_index, i;
++	int max_index, inst_max_index, i, total_lines, l;
+ 	size_t elements, j;
+ 	FILE *fp = fopen(filename,"r");
+ 	char *endptr;
+@@ -420,9 +420,14 @@ void read_problem(const char *filename)
+ 	elements = 0;
+ 	max_line_len = 1024;
+ 	line = Malloc(char,max_line_len);
++	total_lines = 0;
+ 	while(readline(fp)!=NULL)
+ 	{
+ 		char *p = strtok(line," \t"); // label
++		total_lines++; // total lines
++
++		if (p[0] == '#') // comment line
++			continue;
+ 
+ 		// features
+ 		while(1)
+@@ -445,14 +450,20 @@ void read_problem(const char *filename)
+ 	x_space = Malloc(struct feature_node,elements+prob.l);
+ 
+ 	max_index = 0;
+-	j=0;
+-	for(i=0;i<prob.l;i++)
++	i = 0;
++	j = 0;
++	for(l=0;l<total_lines;l++)
+ 	{
++		readline(fp);
++		label = strtok(line," \t\n");
++
++		if (label[0] == '#') // ignore comment lines
++			continue;
++
+ 		prob.query[i] = 0;
+ 		inst_max_index = 0; // strtol gives 0 if wrong format
+-		readline(fp);
+ 		prob.x[i] = &x_space[j];
+-		label = strtok(line," \t\n");
++
+ 		if(label == NULL) // empty line
+ 			exit_input_error(i+1);
+ 
+@@ -511,6 +522,7 @@ void read_problem(const char *filename)
+ 			x_space[j++].value = prob.bias;
+ 
+ 		x_space[j++].index = -1;
++		i++;
+ 	}
+ 
+ 	if(prob.bias >= 0)

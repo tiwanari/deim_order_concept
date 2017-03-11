@@ -1,0 +1,12 @@
+[submodule "googletest"]
+	path = googletest
+	url = https://chromium.googlesource.com/external/github.com/google/googletest/
+[submodule "tools/svr/liblinear"]
+	path = tools/svr/liblinear
+	url = https://github.com/cjlin1/liblinear
+[submodule "xz"]
+	path = xz
+	url = http://git.tukaani.org/xz.git
+[submodule "tools/pmi-box"]
+	path = tools/pmi-box
+	url = https://github.com/tiwanari/pmi-box

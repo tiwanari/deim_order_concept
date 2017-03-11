@@ -1,0 +1,8 @@
+directory:
+  queries: ../../dataset/ja/queries
+  results: ../../result/gather
+
+tool:
+  # svm: ../../tools/libsvm_rank/libsvm-ranksvm-3.22
+  svm: ../../tools/linear_svm/liblinear-ranksvm-2.1
+  svr: ../../tools/svr/liblinear

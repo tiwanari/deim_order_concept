@@ -1,0 +1,4 @@
+query26: 1, r = Nan
+query26: 4, r = Nan
+query58: 4, r = Nan
+query73: 4, r = Nan

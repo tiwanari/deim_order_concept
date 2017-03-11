@@ -1,0 +1,9 @@
+all
+men
+women
+kanto
+kanto_men
+kanto_women
+kinki
+kinki_men
+kinki_women

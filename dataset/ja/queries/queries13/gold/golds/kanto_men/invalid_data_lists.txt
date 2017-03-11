@@ -1,0 +1,8 @@
+query9: 19, r = Nan
+query10: 19, r = Nan
+query13: 11, r = Nan
+query15: 9, r = Nan
+query18: 22, r = Nan
+query54: 19, r = Nan
+query58: 19, r = Nan
+query71: 4, r = Nan
