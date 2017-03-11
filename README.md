@@ -4,10 +4,48 @@
 
 author: Tatsuya Iwanari
 
-## Make
+# Structure
+This repository includes the files used in our demo system. The structure is like this;
+
+```
+.
+├── README.md
+├── dataset
+├── demo
+├── scripts
+├── src
+├── tools
+├── googletest
+└── xz
+```
+
+## Submodules
+The following two submodules are used in our counter program.
+
+- `googletest`
+    - testing
+- `xz`
+    - unarchiving .xz files.
+
+## Tools
+`tools` has some programs like `svr` or `svm` as tools to order concepts.
+
+## Dataset
+`dataset` has the evaluation dataset for Coling 2016.
+
+## Scripts
+`scripts` contains some evaluation scripts and helper demo scripts for Coling 2016.
+
+## Demo
+`demo` is the folder that contains programs for accessing to our back-end system (i.e., endpoints) and making indices.
+
+## Evidence Counter
+`src` keeps the codes of the evidence counter.
+
+### Make
 Move to _src_ folder and run a command ``make``.
 
-## Usage
+### Usage
 In _src_ folder, type the following command
 
 ```
@@ -24,7 +62,7 @@ options:
   -t, --morph                morph type [IPA | JUMAN] (mode: -1, 0) (string [=JUMAN])
 ```
 
-### mode
+#### mode
 _mode_ is an integer parameter to specify what the program will do.
 `-1` is used to count all adjectives with given concepts to make dataset.
 
@@ -35,7 +73,7 @@ _mode_ is an integer parameter to specify what the program will do.
 | 1 | reduce/format | do from the second process. |
 | 2 | format | do the last process only. |
 
-### input\_file
+#### input\_file
 _input\_file_ differs based on the mode parameter.
 
 | mode value | input\_file |
@@ -52,7 +90,7 @@ A list file is composed of lines, each line expresses a file like this:
 ...
 ```
 
-### output\_path
+#### output\_path
 _output\_path_ is a string parameter to specify the output folder.
 All the output of this program will be output into it.
 
@@ -63,7 +101,7 @@ All the output of this program will be output into it.
 | format | output\_path/format |
 
 
-### options for mode -1, 0
+#### options for mode -1, 0
 mode -1 and 0 have more _options_.
 
 | option | explanation |
@@ -75,7 +113,7 @@ mode -1 and 0 have more _options_.
 | [morph] | a morph type for parsing (IPA or JUMAN) [=JUMAN] |
 
 
-## Dependency
+### Dependency
 This program depends on `liblzma` for decoding xz files and it
 needs the followings:
 
